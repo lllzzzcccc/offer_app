@@ -9,10 +9,11 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                //是否发送Cookie
+                // 是否发送Cookie
                 .allowCredentials(true)
-                //放行哪些原始域
-                .allowedOrigins("*")
+                // 放行哪些原始域
+                // 使用通配符模式，例如：".example.com"，或者具体的域名
+                .allowedOriginPatterns("*")
                 .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
                 .allowedHeaders("*")
                 .exposedHeaders("*");
