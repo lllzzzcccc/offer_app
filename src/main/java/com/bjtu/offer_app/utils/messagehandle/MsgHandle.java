@@ -74,7 +74,6 @@ public class MsgHandle {
         this.ToUserName = map.get("FromUserName");
         this.MsgType = map.get("MsgType");
         this.CreateTime = Long.valueOf(map.get("CreateTime"));
-        this.MsgId = Long.valueOf(map.get("MsgId"));
         String event = map.get("Event");
         BaseMessage baseMessage = null;
         if (event.equals(MessageCode.EVENT_TYPE_SUBSCRIBE)) {
