@@ -1,5 +1,8 @@
 package com.bjtu.offer_app.entity;
 
+import lombok.Data;
+
+@Data
 public class TextMessage extends BaseMessage{
 
     /**

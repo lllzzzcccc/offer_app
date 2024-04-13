@@ -1,7 +1,11 @@
 package com.bjtu.offer_app.controller;
 
+import com.bjtu.offer_app.entity.TextMessage;
 import com.bjtu.offer_app.utils.SignUtil;
+import com.bjtu.offer_app.utils.code.MessageCode;
+import com.bjtu.offer_app.utils.messagehandle.MsgHandle;
 import com.bjtu.offer_app.utils.messagehandle.ParseXml;
+import com.bjtu.offer_app.utils.reresult.ResultRes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +48,23 @@ public class WxController {
     public void message(HttpServletRequest request, HttpServletResponse response){
         try {
             Map<String, String> paramMap = ParseXml.parseXml(request);
-
+            String msgType = paramMap.get("MsgType");
+            if (MessageCode.REQ_MESSAGE_TYPE_EVENT.equals(msgType)) {
+                //事件消息
+                //event事件类型
+                String event = paramMap.get("Event");
+                if (MessageCode.EVENT_TYPE_SUBSCRIBE.equals(event)) {
+                    //关注事件
+                    //回复欢迎消息
+                    String content = "欢迎关注";
+                    TextMessage textMessage = new TextMessage();
+                    textMessage.setContent(content);
+                    ResultRes.response(ParseXml.textMessageToXml(textMessage),response);
+                }
+            } else {
+                MsgHandle msgHandle = new MsgHandle();
+                ResultRes.response(msgHandle.processMessage(paramMap),response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
