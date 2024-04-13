@@ -1,0 +1,7 @@
+spring:
+    datasource:
+        url: jdbc:mysql://49.232.218.20:3306/offerShow?characterEncoding=utf-8&serverTimezone=UTC
+        username: root
+        password: Caowenjia12
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
