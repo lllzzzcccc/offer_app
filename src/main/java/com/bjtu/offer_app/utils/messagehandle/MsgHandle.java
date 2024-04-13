@@ -69,5 +69,22 @@ public class MsgHandle {
         return "";
     }
 
+    public String processEvent(Map<String, String> map) throws InstantiationException, IllegalAccessException {
+        this.FromUserName = map.get("ToUserName");
+        this.ToUserName = map.get("FromUserName");
+        this.MsgType = map.get("MsgType");
+        this.CreateTime = Long.valueOf(map.get("CreateTime"));
+        this.MsgId = Long.valueOf(map.get("MsgId"));
+        String event = map.get("Event");
+        BaseMessage baseMessage = null;
+        if (event.equals(MessageCode.EVENT_TYPE_SUBSCRIBE)) {
+            baseMessage = MsgHelpClass.setAttribute(this, TextMessage.class);
+            TextMessage textMessage = (TextMessage) baseMessage;
+            textMessage.setContent("欢迎关注");
+            return ParseXml.textMessageToXml(textMessage);
+        }
+        return "";
+    }
+
 
 }
