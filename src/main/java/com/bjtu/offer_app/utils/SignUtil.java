@@ -10,6 +10,7 @@ public class SignUtil {
     private static final String TOKEN = "offerShow"; // 替换为你的微信Token
 
     public static boolean checkSignature(String signature, String timestamp, String nonce) {
+        System.out.println("in");
         String[] arr = new String[] { TOKEN, timestamp, nonce };
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);
