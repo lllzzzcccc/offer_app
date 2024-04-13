@@ -11,3 +11,6 @@ mybatis-plus:
         map-underscore-to-camel-case: true
     mapper-locations: classpath:/mapper/*.xml
     type-aliases-package: com.bjtu.offer_app.entity
+
+server:
+    port: 80
