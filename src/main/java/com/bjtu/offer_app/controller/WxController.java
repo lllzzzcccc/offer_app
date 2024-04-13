@@ -52,19 +52,6 @@ public class WxController {
             Map<String, String> paramMap = ParseXml.parseXml(request);
             String msgType = paramMap.get("MsgType");
             if (MessageCode.REQ_MESSAGE_TYPE_EVENT.equals(msgType)) {
-                //事件消息
-                //event事件类型
-//                String event = paramMap.get("Event");
-//                if (MessageCode.EVENT_TYPE_SUBSCRIBE.equals(event)) {
-//                    System.out.println("关注事件");
-//                    //关注事件
-//                    //回复欢迎消息
-//                    String content = "欢迎关注";
-//                    BaseMessage baseMessage = MsgHelpClass.setAttribute(this,TextMessage.class);
-//                    TextMessage textMessage = new TextMessage();
-//                    textMessage.setContent(content);
-//                    ResultRes.response(ParseXml.textMessageToXml(textMessage),response);
-//                }
                 MsgHandle msgHandle = new MsgHandle();
                 ResultRes.response(msgHandle.processEvent(paramMap),response);
             } else {

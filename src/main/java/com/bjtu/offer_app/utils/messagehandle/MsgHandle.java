@@ -72,7 +72,7 @@ public class MsgHandle {
     public String processEvent(Map<String, String> map) throws InstantiationException, IllegalAccessException {
         this.FromUserName = map.get("ToUserName");
         this.ToUserName = map.get("FromUserName");
-        this.MsgType = map.get("MsgType");
+        this.MsgType = MessageCode.RESP_MESSAGE_TYPE_TEXT;
         this.CreateTime = Long.valueOf(map.get("CreateTime"));
         String event = map.get("Event");
         BaseMessage baseMessage = null;
