@@ -54,6 +54,7 @@ public class WxController {
                 //event事件类型
                 String event = paramMap.get("Event");
                 if (MessageCode.EVENT_TYPE_SUBSCRIBE.equals(event)) {
+                    System.out.println("关注事件");
                     //关注事件
                     //回复欢迎消息
                     String content = "欢迎关注";
