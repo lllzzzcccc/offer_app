@@ -10,6 +10,17 @@ import java.util.Map;
 @Data
 public class MsgHandle {
 
+    public static final String INFO = "欢迎关注本公众号，本公众号为您提供最新的招聘信息，祝您找到满意的工作\n"+
+            "本系统支持offer信息的增删改查功能，您可以输入以下命令进行操作：\n"+
+            "1. “增 (公司名称) (职位名称) (薪水数额)”以增加一份offer\n"+
+            "2. “删 (offer_id)”以删除一份offer\n"+
+            "3. “查 (offer_id)”以获取一份offer\n"+
+            "4. “全”以获取所有offer信息\n"+
+            "5. “找 (公司名称)”以部分检索offer信息\n"+
+            "6. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”\n"+
+            "7. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”\n"+
+            "8. “帮助”以获取帮助信息\n";
+
     /**
      * 发送方账号（一个openId）
      */
@@ -79,7 +90,7 @@ public class MsgHandle {
         if (event.equals(MessageCode.EVENT_TYPE_SUBSCRIBE)) {
             baseMessage = MsgHelpClass.setAttribute(this, TextMessage.class);
             TextMessage textMessage = (TextMessage) baseMessage;
-            textMessage.setContent("欢迎关注");
+            textMessage.setContent(INFO);
             return ParseXml.textMessageToXml(textMessage);
         }
         return "";
