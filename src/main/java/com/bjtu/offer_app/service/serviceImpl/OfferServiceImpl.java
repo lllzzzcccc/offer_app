@@ -27,7 +27,7 @@ public class OfferServiceImpl extends ServiceImpl<OfferMapper, Offer> implements
     }
 
     public List<Offer> pageOffer(Integer page, Integer size) {
-        Page<Offer> offerPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page , size);
+        Page<Offer> offerPage = new Page<>(page , size);
         IPage<Offer> resultPage = offerMapper.selectPage(offerPage , null);
         return resultPage.getRecords();
     }

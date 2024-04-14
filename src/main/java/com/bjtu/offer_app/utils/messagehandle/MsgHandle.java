@@ -154,8 +154,8 @@ public class MsgHandle {
             }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
             }else if(content.startsWith("页") && words.length == 3){
-                int page = Integer.parseInt(words[1]);
-                int size = Integer.parseInt(words[2]);
+                String page = words[1];
+                String size = words[2];
                 Offer[] data = restTemplate.getForObject(BASE_URL+"page/"+page+"/"+size, Offer[].class);
                 StringBuilder sb = new StringBuilder();
                 if(data == null || data.length == 0){
