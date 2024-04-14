@@ -25,9 +25,10 @@ public class MsgHandle {
             "3. “查 (offer_id)”以获取一份offer\n"+
             "4. “全”以获取所有offer信息\n"+
             "5. “找 (公司名称)”以部分检索offer信息\n"+
-            "6. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”\n"+
-            "7. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”\n"+
-            "8. “帮助”以获取帮助信息\n";
+            "6. “页 (页码) (页面大小)”以分页检索offer信息\n"+
+            "7. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”\n"+
+            "8. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”\n"+
+            "9. “帮助”以获取帮助信息\n";
     public static final Map<String,String> NAME_MAP = new HashMap<String,String>(){{
         put("公司","enterprise");
         put("职位","job");
@@ -152,6 +153,21 @@ public class MsgHandle {
                 return ParseXml.textMessageToXml(textMessage.setContent("替换成功！"));
             }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
+            }else if(content.startsWith("页") && words.length == 3){
+                int page = Integer.parseInt(words[1]);
+                int size = Integer.parseInt(words[2]);
+                Offer[] data = restTemplate.getForObject(BASE_URL+"page/"+page+"/"+size, Offer[].class);
+                StringBuilder sb = new StringBuilder();
+                if(data == null || data.length == 0){
+                    return ParseXml.textMessageToXml(textMessage.setContent("暂无offer信息！"));
+                }
+                for(Offer offer : data){
+                    sb.append("offer_id：").append(offer.getOfferId()).append("\n")
+                            .append("公司名称：").append(offer.getEnterprise()).append("\n")
+                            .append("职位名称：").append(offer.getJob()).append("\n")
+                            .append("薪水：").append(offer.getSalary()).append("\n\n");
+                }
+                return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
             }else {
                 return ParseXml.textMessageToXml(textMessage.setContent("输入有误，请重新输入！"));
             }

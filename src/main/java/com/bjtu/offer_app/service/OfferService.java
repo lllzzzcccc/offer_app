@@ -8,5 +8,6 @@ import java.util.List;
 public interface OfferService extends IService<Offer> {
 
     List<Offer> findOffer(String enterprise);
+    List<Offer> pageOffer(Integer page, Integer size);
 
 }

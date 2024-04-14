@@ -63,4 +63,10 @@ public class OfferController {
     public List<Offer> findOffer(@PathVariable String enterprise) {
         return offerService.findOffer(enterprise);
     }
+
+    @Operation(summary = "分页获取Offer信息")
+    @GetMapping("/page/{page}/{size}")
+    public List<Offer> pageOffer(@PathVariable Integer page, @PathVariable Integer size) {
+        return offerService.pageOffer(page, size);
+    }
 }
