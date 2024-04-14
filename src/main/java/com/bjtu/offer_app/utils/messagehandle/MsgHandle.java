@@ -1,6 +1,7 @@
 package com.bjtu.offer_app.utils.messagehandle;
 
 import com.bjtu.offer_app.entity.BaseMessage;
+import com.bjtu.offer_app.entity.Offer;
 import com.bjtu.offer_app.entity.TextMessage;
 import com.bjtu.offer_app.utils.code.MessageCode;
 import lombok.Data;
@@ -90,9 +91,17 @@ public class MsgHandle {
                 String data = restTemplate.postForObject(BASE_URL, requestBody, String.class);
                 return ParseXml.textMessageToXml(textMessage.setContent(data));
             }else if(content.startsWith("删")){
-
+                String[] words = content.split(" ");
+                restTemplate.delete(BASE_URL+words[1]);
+                return ParseXml.textMessageToXml(textMessage.setContent("删除成功！"));
             }else if(content.startsWith("查")){
-
+                String[] words = content.split(" ");
+                Offer data = restTemplate.getForObject(BASE_URL+words[1], Offer.class);
+                StringBuilder sb = new StringBuilder();
+                sb.append("公司名称：").append(data.getEnterprise()).append("\n")
+                        .append("职位名称：").append(data.getJob()).append("\n")
+                        .append("薪水：").append(data.getSalary()).append("\n");
+                return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
             }else if(content.startsWith("全")){
 
             }else if(content.startsWith("找")){
