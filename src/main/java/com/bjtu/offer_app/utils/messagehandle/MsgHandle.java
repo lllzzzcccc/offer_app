@@ -131,7 +131,7 @@ public class MsgHandle {
                     sb.append("offer_id：").append(offer.getOfferId()).append("\n")
                             .append("公司名称：").append(offer.getEnterprise()).append("\n")
                             .append("职位名称：").append(offer.getJob()).append("\n")
-                            .append("薪水：").append(offer.getSalary()).append("\n");
+                            .append("薪水：").append(offer.getSalary()).append("\n\n");
                 }
                 return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
             }else if(content.startsWith("改") && words.length <= 5 && words.length >= 2){
