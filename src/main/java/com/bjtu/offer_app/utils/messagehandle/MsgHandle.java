@@ -97,18 +97,54 @@ public class MsgHandle {
             }else if(content.startsWith("查") && words.length == 2){
                 Offer data = restTemplate.getForObject(BASE_URL+words[1], Offer.class);
                 StringBuilder sb = new StringBuilder();
-                sb.append("公司名称：").append(data.getEnterprise()).append("\n")
+                sb.append("offer_id：").append(data.getOfferId()).append("\n")
+                        .append("公司名称：").append(data.getEnterprise()).append("\n")
                         .append("职位名称：").append(data.getJob()).append("\n")
                         .append("薪水：").append(data.getSalary()).append("\n");
                 return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
             }else if(content.startsWith("全") && words.length == 1){
-
+                Offer[] data = restTemplate.getForObject(BASE_URL+"list", Offer[].class);
+                StringBuilder sb = new StringBuilder();
+                if(data == null || data.length == 0){
+                    return ParseXml.textMessageToXml(textMessage.setContent("暂无offer信息！"));
+                }
+                for(Offer offer : data){
+                    sb.append("offer_id：").append(offer.getOfferId()).append("\n")
+                            .append("公司名称：").append(offer.getEnterprise()).append("\n")
+                            .append("职位名称：").append(offer.getJob()).append("\n")
+                            .append("薪水：").append(offer.getSalary()).append("\n\n");
+                }
+                return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
             }else if(content.startsWith("找") && words.length == 2){
-
-            }else if(content.startsWith("改") && words.length <= 4 && words.length >= 2){
-
-            }else if(content.startsWith("换") && words.length == 4){
-
+                Offer[] data = restTemplate.getForObject(BASE_URL+"find/"+words[1], Offer[].class);
+                StringBuilder sb = new StringBuilder();
+                if(data == null || data.length == 0){
+                    return ParseXml.textMessageToXml(textMessage.setContent("未找到相关信息！"));
+                }
+                for(Offer offer : data){
+                    sb.append("offer_id：").append(offer.getOfferId()).append("\n")
+                            .append("公司名称：").append(offer.getEnterprise()).append("\n")
+                            .append("职位名称：").append(offer.getJob()).append("\n")
+                            .append("薪水：").append(offer.getSalary()).append("\n");
+                }
+                return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
+            }else if(content.startsWith("改") && words.length <= 5 && words.length >= 2){
+                Map<String,Object> requestBody = new HashMap<>();
+                requestBody.put("offerId",words[1]);
+                for(int i = 2; i < words.length; i++){
+                    String[] temp = words[i].split("=");
+                    requestBody.put(temp[0],temp[1]);
+                }
+                restTemplate.put(BASE_URL, requestBody, String.class);
+                return ParseXml.textMessageToXml(textMessage.setContent("修改成功！"));
+            }else if(content.startsWith("换") && words.length == 5){
+                Map<String,Object> requestBody = new HashMap<>();
+                requestBody.put("offerId",words[1]);
+                requestBody.put("enterprise",words[2]);
+                requestBody.put("job",words[3]);
+                requestBody.put("salary",words[4]);
+                restTemplate.put(BASE_URL, requestBody, String.class);
+                return ParseXml.textMessageToXml(textMessage.setContent("替换成功！"));
             }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
             }else {

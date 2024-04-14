@@ -60,8 +60,8 @@ public class OfferController {
     }
 
     @Operation(summary = "部分检索Offer信息")
-    @GetMapping("/find")
-    public List<Offer> findOffer(@RequestParam String enterprise) {
+    @GetMapping("/find/{enterprise}")
+    public List<Offer> findOffer(@PathVariable String enterprise) {
         return offerService.findOffer(enterprise);
     }
 }
