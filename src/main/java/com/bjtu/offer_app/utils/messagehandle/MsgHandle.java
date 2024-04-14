@@ -26,8 +26,8 @@ public class MsgHandle {
             "4. “全”以获取所有offer信息\n"+
             "5. “找 (公司名称)”以部分检索offer信息\n"+
             "6. “页 (页码) (页面大小)”以分页检索offer信息\n"+
-            "7. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”\n"+
-            "8. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”\n"+
+            "7. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”以部分更改一条offer信息\n"+
+            "8. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”以全部替换一条offer信息\n"+
             "9. “帮助”以获取帮助信息\n";
     public static final Map<String,String> NAME_MAP = new HashMap<String,String>(){{
         put("公司","enterprise");
