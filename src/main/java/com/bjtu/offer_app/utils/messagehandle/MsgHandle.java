@@ -156,6 +156,7 @@ public class MsgHandle {
             }else if(content.startsWith("页") && words.length == 3){
                 String page = words[1];
                 String size = words[2];
+                System.out.println(page+" "+size);
                 Offer[] data = restTemplate.getForObject(BASE_URL+"page/"+page+"/"+size, Offer[].class);
                 StringBuilder sb = new StringBuilder();
                 if(data == null || data.length == 0){
