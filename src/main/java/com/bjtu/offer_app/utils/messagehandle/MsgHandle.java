@@ -82,36 +82,37 @@ public class MsgHandle {
 
         if (this.MsgType.equals(MessageCode.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
             String content = map.get("Content");
-            if(content.startsWith("增")){
-                String[] words = content.split(" ");
+            String[] words = content.split(" ");
+            if(content.startsWith("增") && words.length == 4){
+
                 Map<String,Object> requestBody = new HashMap<>();
                 requestBody.put("enterprise",words[1]);
                 requestBody.put("job",words[2]);
                 requestBody.put("salary",words[3]);
                 String data = restTemplate.postForObject(BASE_URL, requestBody, String.class);
                 return ParseXml.textMessageToXml(textMessage.setContent(data));
-            }else if(content.startsWith("删")){
-                String[] words = content.split(" ");
+            }else if(content.startsWith("删") && words.length == 2){
                 restTemplate.delete(BASE_URL+words[1]);
                 return ParseXml.textMessageToXml(textMessage.setContent("删除成功！"));
-            }else if(content.startsWith("查")){
-                String[] words = content.split(" ");
+            }else if(content.startsWith("查") && words.length == 2){
                 Offer data = restTemplate.getForObject(BASE_URL+words[1], Offer.class);
                 StringBuilder sb = new StringBuilder();
                 sb.append("公司名称：").append(data.getEnterprise()).append("\n")
                         .append("职位名称：").append(data.getJob()).append("\n")
                         .append("薪水：").append(data.getSalary()).append("\n");
                 return ParseXml.textMessageToXml(textMessage.setContent(sb.toString()));
-            }else if(content.startsWith("全")){
+            }else if(content.startsWith("全") && words.length == 1){
 
-            }else if(content.startsWith("找")){
+            }else if(content.startsWith("找") && words.length == 2){
 
-            }else if(content.startsWith("改")){
+            }else if(content.startsWith("改") && words.length <= 4 && words.length >= 2){
 
-            }else if(content.startsWith("换")){
+            }else if(content.startsWith("换") && words.length == 4){
 
-            }else if(content.startsWith("帮助")){
+            }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
+            }else {
+                return ParseXml.textMessageToXml(textMessage.setContent("输入有误，请重新输入！"));
             }
         }
         return "";
