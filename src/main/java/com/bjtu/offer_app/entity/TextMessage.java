@@ -15,4 +15,9 @@ public class TextMessage extends BaseMessage{
         return super.toString() + "[TextMessage]：" + "  Content：" + this.Content;
     }
 
+    public TextMessage setContent(String content){
+        this.Content = content;
+        return this;
+    }
+
 }
