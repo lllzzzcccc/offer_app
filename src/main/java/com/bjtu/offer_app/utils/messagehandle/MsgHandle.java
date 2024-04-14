@@ -28,7 +28,12 @@ public class MsgHandle {
             "6. “改 (offer_id) [公司=(公司名称)] [职位=(职位名称)] [薪水=(薪水数额)]”\n"+
             "7. “换 (offer_id) (公司名称) (职位名称) (薪水数额)”\n"+
             "8. “帮助”以获取帮助信息\n";
+    public static final Map<String,String> NAME_MAP = new HashMap<String,String>(){{
+        put("公司","enterprise");
+        put("职位","job");
+        put("薪水","salary");
 
+    }};
     /**
      * 发送方账号（一个openId）
      */
@@ -133,7 +138,7 @@ public class MsgHandle {
                 requestBody.put("offerId",words[1]);
                 for(int i = 2; i < words.length; i++){
                     String[] temp = words[i].split("=");
-                    requestBody.put(temp[0],temp[1]);
+                    requestBody.put(NAME_MAP.get(temp[0]),temp[1]);
                 }
                 restTemplate.put(BASE_URL+"update", requestBody, String.class);
                 return ParseXml.textMessageToXml(textMessage.setContent("修改成功！"));
