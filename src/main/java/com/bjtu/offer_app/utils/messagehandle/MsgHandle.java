@@ -135,7 +135,7 @@ public class MsgHandle {
                     String[] temp = words[i].split("=");
                     requestBody.put(temp[0],temp[1]);
                 }
-                restTemplate.put(BASE_URL, requestBody, String.class);
+                restTemplate.put(BASE_URL+"/update", requestBody, String.class);
                 return ParseXml.textMessageToXml(textMessage.setContent("修改成功！"));
             }else if(content.startsWith("换") && words.length == 5){
                 Map<String,Object> requestBody = new HashMap<>();
