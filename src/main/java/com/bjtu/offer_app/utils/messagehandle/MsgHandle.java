@@ -143,7 +143,7 @@ public class MsgHandle {
                 requestBody.put("enterprise",words[2]);
                 requestBody.put("job",words[3]);
                 requestBody.put("salary",words[4]);
-                restTemplate.put(BASE_URL, requestBody, String.class);
+                restTemplate.put(BASE_URL+"replace", requestBody, String.class);
                 return ParseXml.textMessageToXml(textMessage.setContent("替换成功！"));
             }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
