@@ -55,6 +55,7 @@ public class OfferController {
     @Operation(summary = "获取Offer列表")
     @GetMapping("/list")
     public List<Offer> listOffer() {
+        System.out.println("list");
         return offerService.list();
     }
 
@@ -67,6 +68,7 @@ public class OfferController {
     @Operation(summary = "分页获取Offer信息")
     @GetMapping("/page/{page}/{size}")
     public List<Offer> pageOffer(@PathVariable Integer page, @PathVariable Integer size) {
+        System.out.println("page");
         return offerService.pageOffer(page, size);
     }
 }

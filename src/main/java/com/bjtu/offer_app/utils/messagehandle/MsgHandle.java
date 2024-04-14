@@ -154,10 +154,7 @@ public class MsgHandle {
             }else if(content.startsWith("帮助") && words.length == 1){
                 return ParseXml.textMessageToXml(textMessage.setContent(HELP));
             }else if(content.startsWith("页") && words.length == 3){
-                String page = words[1];
-                String size = words[2];
-                System.out.println(page+" "+size);
-                Offer[] data = restTemplate.getForObject(BASE_URL+"page/"+page+"/"+size, Offer[].class);
+                Offer[] data = restTemplate.getForObject(BASE_URL+"page/"+words[1]+"/"+words[2], Offer[].class);
                 StringBuilder sb = new StringBuilder();
                 if(data == null || data.length == 0){
                     return ParseXml.textMessageToXml(textMessage.setContent("暂无offer信息！"));
