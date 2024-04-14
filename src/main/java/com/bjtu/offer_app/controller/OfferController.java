@@ -35,8 +35,7 @@ public class OfferController {
     @Operation(summary = "替换Offer信息")
     @PutMapping("/")
     public String replaceOffer(@RequestBody Offer offer) {
-        offerService.removeById(offer.getOfferId());
-        offerService.save(offer);
+        offerService.updateById(offer);
         return "替换成功！";
     }
 
